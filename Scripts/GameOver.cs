@@ -1,46 +1,38 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameOver : MonoBehaviour
-{
-	public Text score;
-	public static float sakil;
-	public float highscore;
+public class GameOver : MonoBehaviour {
+	
+	public Text scoreT;
+	public static float currentScore;
+	public float savedscore;
 	public GameObject Game;
 	public GameObject gameOver;
+	public GameObject manager;
+	private DataClass dc;
 	public static bool gameovertrigger;
-		
-	void Start() 
-	{
+	
+	void Start() {
+		dc = manager.GetComponent<DataClass>();
 		gameovertrigger = false;
 	}
-	
-	void Update() 
-	{
+
+	void Update() {
 		if(gameovertrigger) {
 			gameovertrigger = false;
-			sakil = PlayerMovement.sakil;
-			score.text = sakil.ToString("0");
+			currentScore = PlayerMovement.score;
+			scoreT.text = currentScore.ToString("0");
 			
 			Game.SetActive(false);
 			gameOver.SetActive(true);
 			UIControl.pause1();
 			
-			LoadPlayer();
-			if(highscore < sakil) {
-				PlayerPrefs.SetFloat("sakil", sakil);
-				SavePlayer();
+			savedscore = dc.getScore();
+			if(savedscore < currentScore) {
+				dc.setScore(currentScore);
 			}
 		}
-	}
-
-	public void SavePlayer() {
-		SaveSystem.SavePlayer("sakil");
-	}
-	public void LoadPlayer() {
-		PlayerData data = SaveSystem.LoadPlayer();
-		highscore = data.sakil;
 	}
 }
