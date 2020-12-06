@@ -1,18 +1,27 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
-public class MenuUI : MonoBehaviour
-{
-    public float highscore;
+public class MenuUI : MonoBehaviour {
+    
+	public float score;
 	public Text money;
-	
-	void Start()
-    {
-		LoadPlayer();
-		money.text = highscore.ToString("0");
+	public AudioMixer audioMixer;
+	public float volume;
+	public GameObject manager;
+	private DataClass dc;
+    
+	void Start() {
+		dc = manager.GetComponent<DataClass>();
+		
+		score = dc.getScore();
+		money.text = score.ToString("0");
+		
+		volume = dc.getVolume();
+		audioMixer.SetFloat("MusicVol", volume);
 	}
 
 	public void play() {
@@ -23,10 +32,5 @@ public class MenuUI : MonoBehaviour
 	}
 	public void quit() {
 		Application.Quit();
-	}
-	
-	public void LoadPlayer() {
-		PlayerData data = SaveSystem.LoadPlayer();
-		highscore = data.sakil;
 	}
 }
