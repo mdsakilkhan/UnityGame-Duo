@@ -1,31 +1,31 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectGenerator : MonoBehaviour
-{		
+public class ObjectGenerator : MonoBehaviour {
+	
 	public float time;
 	public int a;
 	public int b;
-	int shop;
 	public GameObject[] objects;
 	public GameObject[] sprites;
 	public static bool paused;
+	public GameObject manager;
+	private DataClass dc;
 		
-	void Start()
-	{
-		LoadPlayer();
+	void Start() {	
+		dc = manager.GetComponent<DataClass>();
+		
 		Vector3 origin = new Vector3(0,0,0);
-		Instantiate(sprites[shop],origin,Quaternion.identity);
+		Instantiate(sprites[dc.getShop()],origin,Quaternion.identity);
 	}
 	
-	void Update()
-    {
+	void Update() {
 		paused = UIControl.paused;
-		if(paused == false){
+		if(!paused){
 			time += Time.deltaTime;
 			if(time > 1f) {
-				time = 0;
+				time = 0f;
 				b = Random.Range(-1,2);
 				if (b == 0) {
 					a = Random.Range(0,2);
@@ -41,10 +41,5 @@ public class ObjectGenerator : MonoBehaviour
 				}
 			}			
 		}
-	}
-	
-	public void LoadPlayer() {
-		PlayerData data = SaveSystem.LoadPlayer();
-		shop = data.shop;
 	}
 }
