@@ -1,28 +1,23 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Audio;
 
-public class OptionMenu : MonoBehaviour
-{
+public class OptionMenu : MonoBehaviour {
+	
 	public AudioMixer audioMixer;
-	float volume;
-    
-	void Start() {
-		LoadPlayer();
-		audioMixer.SetFloat("volume", volume);
+	public Slider slider;
+	public GameObject manager;
+	private DataClass dc;
+	
+ 	void Start() {
+		dc = manager.GetComponent<DataClass>();
+		slider.value = dc.getVolume();
 	}
 	
-	public void SetVolume (float volume) {
-		PlayerPrefs.SetFloat("volume", volume);
-		audioMixer.SetFloat("volume", volume);
-	}
-	
-	public void SavePlayer() {
-		SaveSystem.SavePlayer("volume");
-	}
-	public void LoadPlayer() {
-		PlayerData data = SaveSystem.LoadPlayer();
-		volume = data.volume;
+	public void SetVolume(float volume) {
+		audioMixer.SetFloat("MusicVol", volume);
+		dc.setVolume(volume);	
 	}
 }
