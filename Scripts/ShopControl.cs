@@ -1,27 +1,34 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
-public class ShopControl : MonoBehaviour
-{
+public class ShopControl : MonoBehaviour {
+	
 	public GameObject camera;
 	private Transform tf;
 	public static int shop;
+	public AudioMixer audioMixer;
+	public float volume;
+	public GameObject manager;
+	private DataClass dc;
 	
-	void Start()
-	{
+	void Start() {
+		dc = manager.GetComponent<DataClass>();
+		shop = dc.getShop();		
 		tf = camera.GetComponent<Transform>();
-		LoadPlayer();
 		tf.position = new Vector3(shop*1.5f,0,-10);
 		transform.position = new Vector3(0,0,0);
+		
+		volume = dc.getVolume();
+		audioMixer.SetFloat("MusicVol", volume);
     }
 	
-	void Update()
-    {
-        transform.position = new Vector3(transform.position.x,transform.position.y+0.04f,transform.position.z);
-    }
+	void Update() {
+        transform.position += Vector3.up * 5f * Time.deltaTime;
+	}
 	
 	public void left() {
 		if(tf.position.x != 0) {
@@ -35,17 +42,8 @@ public class ShopControl : MonoBehaviour
 			shop++;
 		}
 	}
-	
-	public void menu() {
-		PlayerPrefs.SetInt("shop", shop);		
-		SavePlayer();
+	public void menu() {	
+		dc.setShop(shop);
 		SceneManager.LoadScene("Menu");
-	}	
-	public void SavePlayer() {
-		SaveSystem.SavePlayer("shop");
-	}
-	public void LoadPlayer() {
-		PlayerData data = SaveSystem.LoadPlayer();
-		shop = data.shop;
 	}
 }
