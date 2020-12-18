@@ -5,7 +5,10 @@ Android game made in unity engine coded in C#. The game is controlled through to
 
 <p align="center">
   <img src="https://github.com/mdsakilkhan/UnityGame-Duo/blob/main/Screenshots/MainMenu.png" />
+  
   <img src="https://github.com/mdsakilkhan/UnityGame-Duo/blob/main/Screenshots/GamePlay.png" />
+  
   <img src="https://github.com/mdsakilkhan/UnityGame-Duo/blob/main/Screenshots/GameOver.png" />
+  
   <img src="https://github.com/mdsakilkhan/UnityGame-Duo/blob/main/Screenshots/ShopMenu.png" />
 </p>
