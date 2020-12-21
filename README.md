@@ -2,6 +2,7 @@
 6/15/2020
 
 Android game made in unity engine coded in C#. The game is controlled through touch system. Include 4 scenes; main menu, game, setting, and shop. Music is added. 
+An apk file is available if you want to run the app on ur android device.
 
 <p align="center">
   <img src="https://github.com/mdsakilkhan/UnityGame-Duo/blob/main/Screenshots/MainMenu.png" />
